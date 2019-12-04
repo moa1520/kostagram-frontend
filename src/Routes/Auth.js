@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "../Components/Button";
 import Input from "../Components/Input";
+import useInput from "../Hooks/useInput";
 
 const Wrapper = styled.div`
   height: 90vh;
@@ -64,6 +65,11 @@ const Comment = styled.div`
 
 export default () => {
   const [action, setAction] = useState("logIn");
+  const username = useInput("");
+  const password = useInput("");
+  const firstName = useInput("");
+  const lastName = useInput("");
+  const email = useInput("");
 
   return (
     <Wrapper>
@@ -71,18 +77,18 @@ export default () => {
         <Logo>Kostagram</Logo>
         {action === "logIn" ? (
           <form>
-            <Input placeholder={"사용자 이름"} />
-            <Input placeholder={"비밀번호"} />
+            <Input placeholder={"사용자 이름"} {...username} />
+            <Input placeholder={"비밀번호"} {...password} type="password" />
             <Button text={"로그인"} />
           </form>
         ) : (
           <form>
             <Comment>친구들의 사진과 동영상을 보려면 가입하세요.</Comment>
-            <Input placeholder={"이메일 주소"} />
-            <Input placeholder={"이름"} />
-            <Input placeholder={"성"} />
-            <Input placeholder={"사용자 이름"} />
-            <Input placeholder={"비밀번호"} />
+            <Input placeholder={"이메일 주소"} {...email} type="email" />
+            <Input placeholder={"이름"} {...firstName} />
+            <Input placeholder={"성"} {...lastName} />
+            <Input placeholder={"사용자 이름"} {...username} />
+            <Input placeholder={"비밀번호"} {...password} type="password" />
             <Button text={"가입"} />
           </form>
         )}

@@ -6,6 +6,7 @@ import Theme from "../Styles/Theme";
 import Router from "./Router";
 import { useQuery } from "react-apollo-hooks";
 import Footer from "./Footer";
+import "../Styles/fonts/fontStyle.css";
 
 const QUERY = gql`
   {

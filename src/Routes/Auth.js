@@ -46,39 +46,57 @@ const Form = styled(Box)`
   }
 `;
 
+const Logo = styled.h1`
+  text-align: center;
+  margin-bottom: 30px;
+  font-family: billabongregular;
+  font-size: 48px;
+`;
+
+const Comment = styled.div`
+  font-weight: 600;
+  line-height: 20px;
+  font-size: 17px;
+  color: ${props => props.theme.darkGreyColor};
+  text-align: center;
+  margin-bottom: 25px;
+`;
+
 export default () => {
   const [action, setAction] = useState("logIn");
 
   return (
     <Wrapper>
       <Form>
+        <Logo>Kostagram</Logo>
         {action === "logIn" ? (
           <form>
-            <Input placeholder={"ID"} />
-            <Input placeholder={"Password"} />
-            <Button text={"Log in"} />
+            <Input placeholder={"사용자 이름"} />
+            <Input placeholder={"비밀번호"} />
+            <Button text={"로그인"} />
           </form>
         ) : (
           <form>
-            <Input placeholder={"ID"} />
-            <Input placeholder={"Password"} />
-            <Input placeholder={"First name"} />
-            <Input placeholder={"Last name"} />
-            <Input placeholder={"Email"} />
-            <Button text={"Sign up"} />
+            <Comment>친구들의 사진과 동영상을 보려면 가입하세요.</Comment>
+            <Input placeholder={"이메일 주소"} />
+            <Input placeholder={"이름"} />
+            <Input placeholder={"성"} />
+            <Input placeholder={"사용자 이름"} />
+            <Input placeholder={"비밀번호"} />
+            <Button text={"가입"} />
           </form>
         )}
       </Form>
       <StateChanger>
         {action === "logIn" ? (
           <>
-            Don't have an account?{" "}
-            <Link onClick={() => setAction("signUp")}>Sign up</Link>
+            계정이 없으신가요?{" "}
+            <Link onClick={() => setAction("signUp")}>가입하기</Link>
           </>
         ) : (
           <>
-            Have an account?{" "}
-            <Link onClick={() => setAction("logIn")}>Log in</Link>
+            계정이 있으신가요?{" "}
+            <Link onClick={() => setAction("logIn")}>로그인</Link>
           </>
         )}
       </StateChanger>

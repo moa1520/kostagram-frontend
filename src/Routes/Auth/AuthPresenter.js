@@ -69,18 +69,20 @@ export default ({
   firstName,
   lastName,
   email,
+  secret,
   onSubmit
 }) => {
   return (
     <Wrapper>
       <Form>
         <Logo>Kostagram</Logo>
-        {action === "logIn" ? (
+        {action === "logIn" && (
           <form onSubmit={onSubmit}>
             <Input placeholder={"이메일 주소"} {...email} type="email" />
             <Button text={"로그인"} />
           </form>
-        ) : (
+        )}{" "}
+        {action === "signUp" && (
           <form onSubmit={onSubmit}>
             <Comment>친구들의 사진과 동영상을 보려면 가입하세요.</Comment>
             <Input placeholder={"이메일 주소"} {...email} type="email" />
@@ -88,6 +90,12 @@ export default ({
             <Input placeholder={"성"} {...lastName} />
             <Input placeholder={"사용자 이름"} {...username} />
             <Button text={"가입"} />
+          </form>
+        )}{" "}
+        {action === "confirm" && (
+          <form onSubmit={onSubmit}>
+            <Input placeholder="인증코드를 입력하세요" required {...secret} />
+            <Button text={"제출"} />
           </form>
         )}
       </Form>

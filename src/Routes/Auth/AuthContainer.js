@@ -10,6 +10,7 @@ export default () => {
   const username = useInput("");
   const firstName = useInput("");
   const lastName = useInput("");
+  const secret = useInput("");
   const email = useInput("");
   const [requestSecretMutation] = useMutation(LOG_IN, {
     variables: { email: email.value }
@@ -35,9 +36,12 @@ export default () => {
           if (!requestSecret) {
             toast.error("계정이 없습니다. 새 아이디를 만드세요");
             setTimeout(() => setAction("signUp"), 3000);
+          } else {
+            toast.success("메일로 전송된 인증코드를 확인해주세요");
+            setAction("confirm");
           }
         } catch {
-          toast.error("비밀키를 생성할 수 없습니다. 다시 시도하세요");
+          toast.error("인증코드를 생성할 수 없습니다. 다시 시도하세요");
         }
       } else {
         toast.error("이메일이 필요합니다");
@@ -76,6 +80,7 @@ export default () => {
       firstName={firstName}
       lastName={lastName}
       email={email}
+      secret={secret}
       onSubmit={onSubmit}
     />
   );

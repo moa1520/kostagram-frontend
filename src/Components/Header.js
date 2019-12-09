@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { Link, withRouter } from "react-router-dom";
-import { gql } from "apollo-boost";
 import Input from "../Components/Input";
 import useInput from "../Hooks/useInput";
 import { Instagram, Compass, HeartEmpty, User } from "./Icons";
 import { useQuery } from "react-apollo-hooks";
+import { ME } from "../SharedQueries";
 
 const Header = styled.header`
   width: 100%;
@@ -70,14 +70,6 @@ const Logo = styled.h1`
   color: black;
   font-size: 32px;
   margin-left: 30px;
-`;
-
-const ME = gql`
-  {
-    me {
-      username
-    }
-  }
 `;
 
 export default withRouter(({ history }) => {

@@ -4,7 +4,6 @@ import useInput from "../../Hooks/useInput";
 import PostPresenter from "./PostPresenter";
 import { useMutation } from "react-apollo-hooks";
 import { TOGGLE_LIKE, ADD_COMMENT } from "./PostQueries";
-import { toast } from "react-toastify";
 
 const PostContainer = ({
   id,
@@ -52,6 +51,14 @@ const PostContainer = ({
     toggleLikeMutation();
   };
 
+  const onKeyPress = e => {
+    const { keyCode } = e;
+    if (keyCode === 13) {
+      comment.setValue("");
+      addCommentMutation();
+    }
+  };
+
   return (
     <PostPresenter
       user={user}
@@ -67,6 +74,7 @@ const PostContainer = ({
       location={location}
       currentItem={currentItem}
       toggleLike={toggleLike}
+      onKeyPress={onKeyPress}
     />
   );
 };

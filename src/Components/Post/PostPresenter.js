@@ -4,6 +4,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import FatText from "../FatText";
 import Avatar from "../Avatar";
 import { HeartFull, HeartEmpty, Comment as CommentIcon } from "../Icons";
+import Date from "../Date";
 
 const Post = styled.div`
   ${props => props.theme.whiteBox};
@@ -154,7 +155,7 @@ export default ({
           ))}
         </Comments>
       )}
-      <Timestamp>{createdAt}</Timestamp>
+      <Timestamp>{Date(createdAt)}</Timestamp>
       <Textarea
         placeholder={"댓글달기..."}
         value={newComment.value}

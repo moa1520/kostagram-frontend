@@ -16,9 +16,15 @@ export default createdAt => {
 
   const subDate = newDate - postDate;
 
-  if (Math.ceil(subDate / (1000 * 60 * 60 * 24)) === 1) {
+  if (Math.ceil(subDate / (1000 * 60)) === 1) {
+    return `${Math.ceil(subDate / 1000)}초 전`;
+  } else if (Math.ceil(subDate / (1000 * 60 * 60)) === 1) {
+    return `${Math.ceil(subDate / (1000 * 60))}분 전`;
+  } else if (Math.ceil(subDate / (1000 * 60 * 60 * 24)) === 1) {
     return `${Math.ceil(subDate / (1000 * 60 * 60))}시간 전`;
+  } else if (Math.ceil(subDate / (1000 * 60 * 60 * 24 * 30)) === 1) {
+    return `${Math.ceil(subDate / (1000 * 60 * 60 * 24))}일 전`;
+  } else {
+    return `${Math.ceil(subDate / (1000 * 60 * 60 * 24 * 30))}달 전`;
   }
-
-  return `${Math.ceil(subDate / (1000 * 60 * 60 * 24))}일 전`;
 };

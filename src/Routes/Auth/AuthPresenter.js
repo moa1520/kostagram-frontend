@@ -1,4 +1,5 @@
 import React from "react";
+import Helmet from "react-helmet";
 import styled from "styled-components";
 import Button from "../../Components/Button";
 import Input from "../../Components/Input";
@@ -74,6 +75,9 @@ export default ({
 }) => {
   return (
     <Wrapper>
+      <Helmet>
+        <title>Log In | Kostagram</title>
+      </Helmet>
       <Form>
         <Logo>Kostagram</Logo>
         {action === "logIn" && (
@@ -83,20 +87,30 @@ export default ({
           </form>
         )}{" "}
         {action === "signUp" && (
-          <form onSubmit={onSubmit}>
-            <Comment>친구들의 사진과 동영상을 보려면 가입하세요.</Comment>
-            <Input placeholder={"이메일 주소"} {...email} type="email" />
-            <Input placeholder={"이름"} {...firstName} />
-            <Input placeholder={"성"} {...lastName} />
-            <Input placeholder={"사용자 이름"} {...username} />
-            <Button text={"가입"} />
-          </form>
+          <>
+            <Helmet>
+              <title>Sign Up | Kostagram</title>
+            </Helmet>
+            <form onSubmit={onSubmit}>
+              <Comment>친구들의 사진과 동영상을 보려면 가입하세요.</Comment>
+              <Input placeholder={"이메일 주소"} {...email} type="email" />
+              <Input placeholder={"이름"} {...firstName} />
+              <Input placeholder={"성"} {...lastName} />
+              <Input placeholder={"사용자 이름"} {...username} />
+              <Button text={"가입"} />
+            </form>
+          </>
         )}{" "}
         {action === "confirm" && (
-          <form onSubmit={onSubmit}>
-            <Input placeholder="인증코드를 입력하세요" required {...secret} />
-            <Button text={"제출"} />
-          </form>
+          <>
+            <Helmet>
+              <title>Confirm Secret | Kostagram</title>
+            </Helmet>
+            <form onSubmit={onSubmit}>
+              <Input placeholder="인증코드를 입력하세요" required {...secret} />
+              <Button text={"제출"} />
+            </form>
+          </>
         )}
       </Form>
       {action !== "confirm" && (

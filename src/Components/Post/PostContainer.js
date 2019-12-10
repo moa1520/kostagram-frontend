@@ -41,6 +41,7 @@ const PostContainer = ({
   };
   useEffect(() => {
     slide();
+    // eslint-disable-next-line
   }, [currentItem]);
 
   const toggleLike = async () => {

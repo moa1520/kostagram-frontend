@@ -38,9 +38,10 @@ const SearchPresenter = ({ searchTerm, loading, data }) => {
           {data.searchUser.length === 0 ? (
             <FatText text={"유저 검색결과가 없습니다"} />
           ) : (
-            data.searchUser.map((user, index) => (
+            data.searchUser.map(user => (
               <UserCard
-                key={index}
+                id={user.id}
+                key={user.id}
                 username={user.username}
                 url={user.avatar}
                 isFollowing={user.isFollowing}

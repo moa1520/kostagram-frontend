@@ -13,7 +13,9 @@ const getSize = size => {
   }
   return `
     width: ${number}px;
-    height: ${number}px
+    height: ${number}px;
+    min-width: ${number}px;
+    min-height: ${number}px;
     `;
 };
 

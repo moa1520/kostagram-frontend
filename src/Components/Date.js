@@ -14,10 +14,10 @@ export default createdAt => {
   const min = Number(createdAt.substring(14, 16));
   const postDate = new Date(year, month, day, hour, min);
 
-  const subDate = newDate - postDate;
+  const subDate = newDate - postDate - 32400000;
 
-  if (Math.ceil(subDate / (1000 * 60)) === 1) {
-    return `${Math.ceil(subDate / 1000)}초 전`;
+  if (Math.ceil(subDate / (1000 * 60)) < 1) {
+    return "방금 전";
   } else if (Math.ceil(subDate / (1000 * 60 * 60)) === 1) {
     return `${Math.ceil(subDate / (1000 * 60))}분 전`;
   } else if (Math.ceil(subDate / (1000 * 60 * 60 * 24)) === 1) {

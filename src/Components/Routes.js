@@ -6,12 +6,16 @@ import Feed from "../Routes/Feed";
 import Explore from "../Routes/Explore";
 import Profile from "../Routes/Profile";
 import Search from "../Routes/Search";
+import Notifications from "../Routes/Notifications";
+import Post from "../Routes/Post";
 
 const LoggedInRoutes = () => (
   <Switch>
     <Route exact path="/" component={Feed} />
     <Route path="/explore" component={Explore} />
     <Route path="/search" component={Search} />
+    <Route path="/notifications" component={Notifications} />
+    <Route path="/p/:postId" component={Post} />
     <Route path="/:username" component={Profile} />
     <Redirect from="*" to="/" />
   </Switch>

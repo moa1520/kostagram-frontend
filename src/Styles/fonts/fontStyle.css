@@ -1,0 +1,5 @@
+@font-face {
+  font-family: "billabongregular";
+  src: url("billabong-webfont.woff2") format("woff2"),
+    url("billabong-webfont.woff") format("woff");
+}

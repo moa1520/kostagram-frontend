@@ -37,6 +37,7 @@ const Username = styled.span`
   font-size: 26px;
   font-weight: 300;
   display: block;
+  margin-right: 20px;
 `;
 
 const Counts = styled.ul`
@@ -66,6 +67,14 @@ const Posts = styled.div`
   grid-auto-rows: 300px;
 `;
 
+const EButton = styled(Button)`
+  background-color: ${props => props.theme.bgColor};
+  color: black;
+  border: 1px solid ${props => props.theme.lightGreyColor};
+  width: 90px;
+  height: 30px;
+`;
+
 export default ({ loading, data, logOut }) => {
   if (loading) {
     return (
@@ -74,7 +83,6 @@ export default ({ loading, data, logOut }) => {
       </Wrapper>
     );
   } else {
-    console.log(data);
     const {
       seeUser: {
         id,
@@ -103,7 +111,7 @@ export default ({ loading, data, logOut }) => {
             <UsernameRow>
               <Username>{username}</Username>{" "}
               {isSelf ? (
-                <Button text={"로그아웃"} onClick={logOut} />
+                <EButton text={"로그아웃"} onClick={logOut} />
               ) : (
                 <FollowButton id={id} isFollowing={isFollowing} />
               )}

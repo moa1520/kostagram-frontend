@@ -7,6 +7,7 @@ import ProfilePresenter from "./ProfilePresenter";
 const GET_USER = gql`
   query seeUser($username: String!) {
     seeUser(username: $username) {
+      id
       avatar
       username
       fullName

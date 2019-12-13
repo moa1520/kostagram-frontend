@@ -31,20 +31,8 @@ const PostContainer = ({
       text: comment.value
     }
   });
-  const slide = () => {
-    const totalFiles = files.length;
-    if (currentItem === totalFiles - 1) {
-      setTimeout(() => setCurrentItem(0), 3000);
-    } else {
-      setTimeout(() => setCurrentItem(currentItem + 1), 3000);
-    }
-  };
-  useEffect(() => {
-    slide();
-    // eslint-disable-next-line
-  }, [currentItem]);
 
-  const toggleLike = async () => {
+  const toggleLike = () => {
     setIsLiked(!isLikedS);
     if (!isLikedS) {
       setLikeCount(likeCountS + 1);
@@ -70,6 +58,18 @@ const PostContainer = ({
     }
   };
 
+  useEffect(() => {
+    const slide = () => {
+      const totalFiles = files.length;
+      if (currentItem === totalFiles - 1) {
+        setTimeout(() => setCurrentItem(0), 3000);
+      } else {
+        setTimeout(() => setCurrentItem(currentItem + 1), 3000);
+      }
+    };
+    slide();
+  }, [currentItem]);
+
   return (
     <PostPresenter
       user={user}
@@ -79,8 +79,6 @@ const PostContainer = ({
       comments={comments}
       createdAt={createdAt}
       newComment={comment}
-      setIsLiked={setIsLiked}
-      setLikeCount={setLikeCount}
       caption={caption}
       location={location}
       currentItem={currentItem}

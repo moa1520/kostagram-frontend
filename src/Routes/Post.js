@@ -5,7 +5,9 @@ import styled from "styled-components";
 import Loader from "../Components/Loader";
 import FullPost from "../Components/FullPost";
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  min-height: 80vh;
+`;
 
 const FULL_POST = gql`
   query seeFullPost($id: String!) {

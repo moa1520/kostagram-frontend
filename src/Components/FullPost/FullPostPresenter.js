@@ -3,6 +3,7 @@ import styled from "styled-components";
 import TextareaAutosize from "react-textarea-autosize";
 import { Link } from "react-router-dom";
 import Helmet from "react-helmet";
+import StickyBox from "react-sticky-box";
 import Avatar from "../Avatar";
 import FatText from "../FatText";
 import Date from "../Date";
@@ -22,6 +23,7 @@ const Container = styled.div`
   ${props => props.theme.whiteBox};
   width: 100%;
   display: flex;
+  max-height: 600px;
 `;
 
 const Image = styled.div`
@@ -36,6 +38,7 @@ const Image = styled.div`
 const RightContents = styled.div`
   width: 100%;
   max-width: 335px;
+  max-height: 600px;
 `;
 
 const Header = styled.div`
@@ -43,7 +46,10 @@ const Header = styled.div`
   align-items: center;
   padding: 15px;
   height: 70px;
+  width: 100%;
+  max-width: 335px;
   border-bottom: ${props => props.theme.boxBorder};
+  position: absolute;
 `;
 
 const UserColumn = styled.div``;
@@ -67,9 +73,10 @@ const UserName = styled(Link)``;
 
 const Comments = styled.div`
   padding: 0 15px;
-  margin-top: 20px;
+  margin-top: 70px;
   border-bottom: ${props => props.theme.boxBorder};
-  min-height: 375px;
+  max-height: 395px;
+  overflow: auto;
 `;
 
 const Comment = styled.div`
@@ -152,51 +159,53 @@ const FullPostPresenter = ({
             </UserColumn>
           </Header>
           <Comments>
-            <Comment>
-              <Text>
-                <Content>
-                  <EAvatar size={"sm"} url={user.avatar} />
-                  <UserName to={`/${user.username}`}>
-                    <FatText text={user.username} />
-                  </UserName>
-                  {caption}
-                </Content>
-                <Day>{Date(createdAt)}</Day>
-              </Text>
-            </Comment>
-            {comments &&
-              comments.map(comment => (
-                <Comment key={comment.id}>
-                  <Text>
-                    <Content>
-                      <EAvatar
-                        key={comment.user.id}
-                        size={"sm"}
-                        url={comment.user.avatar}
-                      />
-                      <UserName to={`/${comment.user.username}`}>
-                        <FatText text={comment.user.username} />
-                      </UserName>
-                      {comment.text}
-                    </Content>
-                    <Day>{Date(comment.createdAt)}</Day>
-                  </Text>
-                </Comment>
-              ))}
-            {selfComments.map(comment => (
-              <Comment key={comment.id}>
+            <StickyBox offsetTop={10} offsetBottom={10}>
+              <Comment>
                 <Text>
                   <Content>
                     <EAvatar size={"sm"} url={user.avatar} />
                     <UserName to={`/${user.username}`}>
                       <FatText text={user.username} />
                     </UserName>
-                    {comment.text}
+                    {caption}
                   </Content>
-                  <Day>방금 전</Day>
+                  <Day>{Date(createdAt)}</Day>
                 </Text>
               </Comment>
-            ))}
+              {comments &&
+                comments.map(comment => (
+                  <Comment key={comment.id}>
+                    <Text>
+                      <Content>
+                        <EAvatar
+                          key={comment.user.id}
+                          size={"sm"}
+                          url={comment.user.avatar}
+                        />
+                        <UserName to={`/${comment.user.username}`}>
+                          <FatText text={comment.user.username} />
+                        </UserName>
+                        {comment.text}
+                      </Content>
+                      <Day>{Date(comment.createdAt)}</Day>
+                    </Text>
+                  </Comment>
+                ))}
+              {selfComments.map(comment => (
+                <Comment key={comment.id}>
+                  <Text>
+                    <Content>
+                      <EAvatar size={"sm"} url={user.avatar} />
+                      <UserName to={`/${user.username}`}>
+                        <FatText text={user.username} />
+                      </UserName>
+                      {comment.text}
+                    </Content>
+                    <Day>방금 전</Day>
+                  </Text>
+                </Comment>
+              ))}
+            </StickyBox>
           </Comments>
           <Utils>
             <Buttons>

@@ -68,6 +68,7 @@ const PostContainer = ({
       }
     };
     slide();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentItem]);
 
   return (

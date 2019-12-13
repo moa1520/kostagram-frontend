@@ -49,15 +49,16 @@ const Explore = () => {
         <FatText text={"탐색 탭"} />
       </Tab>
       <Posts>
-        {data.explorePost.map(post => (
-          <SquarePost
-            key={post.id}
-            postId={post.id}
-            likeCount={post.likeCount}
-            commentCount={post.commentCount}
-            file={post.files[0]}
-          />
-        ))}
+        {data &&
+          data.explorePost.map(post => (
+            <SquarePost
+              key={post.id}
+              postId={post.id}
+              likeCount={post.likeCount}
+              commentCount={post.commentCount}
+              file={post.files[0]}
+            />
+          ))}
       </Posts>
     </Wrapper>
   );

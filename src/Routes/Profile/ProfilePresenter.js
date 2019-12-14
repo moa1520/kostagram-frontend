@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import Loader from "../../Components/Loader";
 import Avatar from "../../Components/Avatar";
 import Helmet from "react-helmet";
@@ -9,7 +10,7 @@ import SquarePost from "../../Components/SquarePost";
 import Button from "../../Components/Button";
 
 const Wrapper = styled.div`
-  min-height: 100%;
+  min-height: 80vh;
 `;
 
 const Header = styled.header`
@@ -38,6 +39,10 @@ const Username = styled.span`
   font-weight: 300;
   display: block;
   margin-right: 20px;
+`;
+
+const ELink = styled(Link)`
+  margin-right: 10px;
 `;
 
 const Counts = styled.ul`
@@ -111,7 +116,12 @@ export default ({ loading, data, logOut }) => {
             <UsernameRow>
               <Username>{username}</Username>{" "}
               {isSelf ? (
-                <EButton text={"로그아웃"} onClick={logOut} />
+                <>
+                  <ELink to={"/accounts/edit"}>
+                    <EButton text={"프로필 편집"} />
+                  </ELink>
+                  <EButton text={"로그아웃"} onClick={logOut} />
+                </>
               ) : (
                 <FollowButton id={id} isFollowing={isFollowing} />
               )}

@@ -41,11 +41,11 @@ const RightContainer = styled.div`
   width: 100%;
   display: flex;
   padding: 40px;
+  justify-content: center;
 `;
 
 const EAvatar = styled(Avatar)`
   margin-left: auto;
-  margin-right: 20px;
 `;
 
 const EUsername = styled.div`
@@ -67,14 +67,12 @@ const Row = styled.tr`
 `;
 
 const Aside = styled.td`
-  width: 30%;
   vertical-align: middle;
   text-align: right;
   padding: 10px 30px 10px 0;
 `;
 
 const Content = styled.td`
-  width: 100%;
   vertical-align: middle;
   padding: 10px 0 10px 0;
 `;

@@ -1,17 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import Input from "../../Components/Input";
+import { Link } from "react-router-dom";
 import FatText from "../../Components/FatText";
 import Avatar from "../../Components/Avatar";
+import Input from "../../Components/Input";
+import Button from "../../Components/Button";
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  a {
-    color: inherit;
-  }
 `;
 
 const Container = styled.div`
@@ -44,14 +43,6 @@ const RightContainer = styled.div`
   padding: 40px;
 `;
 
-const RLContent = styled.div`
-  width: 30%;
-`;
-
-const RRContent = styled.div`
-  width: 100%;
-`;
-
 const EAvatar = styled(Avatar)`
   margin-left: auto;
   margin-right: 20px;
@@ -60,6 +51,52 @@ const EAvatar = styled(Avatar)`
 const EUsername = styled.div`
   font-size: 20px;
   font-weight: 400px;
+  margin-bottom: 5px;
+`;
+
+const EFatText = styled(FatText)`
+  font-size: 18px;
+`;
+
+const ETable = styled.table`
+  width: 100%;
+`;
+
+const Row = styled.tr`
+  min-height: 50px;
+`;
+
+const Aside = styled.td`
+  width: 30%;
+  vertical-align: middle;
+  text-align: right;
+  padding: 10px 30px 10px 0;
+`;
+
+const Content = styled.td`
+  width: 100%;
+  vertical-align: middle;
+  padding: 10px 0 10px 0;
+`;
+
+const EInput = styled(Input)`
+  width: 360px;
+`;
+
+const TextArea = styled.textarea`
+  width: 360px;
+  height: 100px;
+  border: 0;
+  border: ${props => props.theme.boxBorder};
+  border-radius: ${props => props.theme.borderRadius};
+  background-color: ${props => props.theme.bgColor};
+  font-size: 12px;
+  padding: 15px;
+  resize: none;
+`;
+
+const EButton = styled(Button)`
+  width: 50px;
 `;
 
 const EditProfilePresenter = ({
@@ -83,12 +120,69 @@ const EditProfilePresenter = ({
           <LeftContent selected={false}>로그인 활동</LeftContent>
         </LeftContainer>
         <RightContainer>
-          <RLContent>
-            <EAvatar size={"md"} url={avatar} />
-          </RLContent>
-          <RRContent>
-            <EUsername>{username}</EUsername>
-          </RRContent>
+          <form>
+            <ETable>
+              <tbody>
+                <Row>
+                  <Aside>
+                    <EAvatar size={"md"} url={avatar} />
+                  </Aside>
+                  <Content>
+                    <EUsername>{username}</EUsername>
+                    <Link>
+                      <EFatText text={"프로필 사진 바꾸기"} />
+                    </Link>
+                  </Content>
+                </Row>
+                <Row>
+                  <Aside>
+                    <EFatText text={"성"} />
+                  </Aside>
+                  <Content>
+                    <EInput value={firstName} />
+                  </Content>
+                </Row>
+                <Row>
+                  <Aside>
+                    <EFatText text={"이름"} />
+                  </Aside>
+                  <Content>
+                    <EInput value={lastName} />
+                  </Content>
+                </Row>
+                <Row>
+                  <Aside>
+                    <EFatText text={"사용자 이름"} />
+                  </Aside>
+                  <Content>
+                    <EInput value={username} />
+                  </Content>
+                </Row>
+                <Row>
+                  <Aside>
+                    <EFatText text={"소개"} />
+                  </Aside>
+                  <Content>
+                    <TextArea value={bio} />
+                  </Content>
+                </Row>
+                <Row>
+                  <Aside>
+                    <EFatText text={"이메일"} />
+                  </Aside>
+                  <Content>
+                    <EInput value={email} />
+                  </Content>
+                </Row>
+                <Row>
+                  <Aside></Aside>
+                  <Content>
+                    <EButton text={"제출"} />
+                  </Content>
+                </Row>
+              </tbody>
+            </ETable>
+          </form>
         </RightContainer>
       </Container>
     </Wrapper>

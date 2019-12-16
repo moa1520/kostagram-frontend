@@ -55,7 +55,11 @@ const EUsername = styled.div`
 `;
 
 const EFatText = styled(FatText)`
-  font-size: 18px;
+  font-size: 14px;
+`;
+
+const CFatText = styled(FatText)`
+  font-size: 16px;
 `;
 
 const ETable = styled.table`
@@ -134,7 +138,7 @@ const EditProfilePresenter = ({
                 </Row>
                 <Row>
                   <Aside>
-                    <EFatText text={"성"} />
+                    <CFatText text={"성"} />
                   </Aside>
                   <Content>
                     <EInput value={firstName} />
@@ -142,7 +146,7 @@ const EditProfilePresenter = ({
                 </Row>
                 <Row>
                   <Aside>
-                    <EFatText text={"이름"} />
+                    <CFatText text={"이름"} />
                   </Aside>
                   <Content>
                     <EInput value={lastName} />
@@ -150,7 +154,7 @@ const EditProfilePresenter = ({
                 </Row>
                 <Row>
                   <Aside>
-                    <EFatText text={"사용자 이름"} />
+                    <CFatText text={"사용자 이름"} />
                   </Aside>
                   <Content>
                     <EInput value={username} />
@@ -158,7 +162,7 @@ const EditProfilePresenter = ({
                 </Row>
                 <Row>
                   <Aside>
-                    <EFatText text={"소개"} />
+                    <CFatText text={"소개"} />
                   </Aside>
                   <Content>
                     <TextArea value={bio} />
@@ -166,7 +170,7 @@ const EditProfilePresenter = ({
                 </Row>
                 <Row>
                   <Aside>
-                    <EFatText text={"이메일"} />
+                    <CFatText text={"이메일"} />
                   </Aside>
                   <Content>
                     <EInput value={email} />

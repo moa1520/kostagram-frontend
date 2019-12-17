@@ -18,7 +18,8 @@ const Input = ({
   value,
   onChange,
   type = "text",
-  className
+  className,
+  ref
 }) => (
   <Container
     className={className}
@@ -27,6 +28,7 @@ const Input = ({
     value={value}
     onChange={onChange}
     type={type}
+    ref={ref}
   />
 );
 
@@ -35,7 +37,8 @@ Input.propTypes = {
   required: PropTypes.bool,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  type: PropTypes.string
+  type: PropTypes.string,
+  ref: PropTypes.string
 };
 
 export default Input;

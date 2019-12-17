@@ -6,6 +6,7 @@ import FatText from "../../Components/FatText";
 import Avatar from "../../Components/Avatar";
 import Input from "../../Components/Input";
 import Button from "../../Components/Button";
+import useInput from "../../Hooks/useInput";
 
 const Wrapper = styled.div`
   display: flex;
@@ -109,6 +110,12 @@ const EditProfilePresenter = ({
   lastName,
   bio
 }) => {
+  const firstNameInput = useInput(firstName);
+  const lastNameInput = useInput(lastName);
+  const bioInput = useInput(bio);
+  const usernameInput = useInput(username);
+  const emailInput = useInput(email);
+
   return (
     <Wrapper>
       <Container>
@@ -131,7 +138,7 @@ const EditProfilePresenter = ({
                   </Aside>
                   <Content>
                     <EUsername>{username}</EUsername>
-                    <Link>
+                    <Link to={"#"}>
                       <EFatText text={"프로필 사진 바꾸기"} />
                     </Link>
                   </Content>
@@ -141,7 +148,11 @@ const EditProfilePresenter = ({
                     <CFatText text={"성"} />
                   </Aside>
                   <Content>
-                    <EInput value={firstName} />
+                    <EInput
+                      value={firstNameInput.value}
+                      onChange={firstNameInput.onChange}
+                      placeholder={"성"}
+                    />
                   </Content>
                 </Row>
                 <Row>
@@ -149,7 +160,11 @@ const EditProfilePresenter = ({
                     <CFatText text={"이름"} />
                   </Aside>
                   <Content>
-                    <EInput value={lastName} />
+                    <EInput
+                      value={lastNameInput.value}
+                      onChange={lastNameInput.onChange}
+                      placeholder={"이름"}
+                    />
                   </Content>
                 </Row>
                 <Row>
@@ -157,7 +172,11 @@ const EditProfilePresenter = ({
                     <CFatText text={"사용자 이름"} />
                   </Aside>
                   <Content>
-                    <EInput value={username} />
+                    <EInput
+                      value={usernameInput.value}
+                      onChange={usernameInput.onChange}
+                      placeholder={"사용자 이름"}
+                    />
                   </Content>
                 </Row>
                 <Row>
@@ -165,7 +184,11 @@ const EditProfilePresenter = ({
                     <CFatText text={"소개"} />
                   </Aside>
                   <Content>
-                    <TextArea value={bio} />
+                    <TextArea
+                      value={bioInput.value}
+                      onChange={bioInput.onChange}
+                      placeholder={"소개"}
+                    />
                   </Content>
                 </Row>
                 <Row>
@@ -173,7 +196,11 @@ const EditProfilePresenter = ({
                     <CFatText text={"이메일"} />
                   </Aside>
                   <Content>
-                    <EInput value={email} />
+                    <EInput
+                      value={emailInput.value}
+                      onChange={emailInput.onChange}
+                      placeholder={"이메일"}
+                    />
                   </Content>
                 </Row>
                 <Row>

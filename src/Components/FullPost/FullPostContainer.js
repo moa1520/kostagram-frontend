@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FullPostPresenter from "./FullPostPresenter";
 import PropTypes from "prop-types";
 import { useMutation } from "react-apollo-hooks";
@@ -19,6 +19,7 @@ const FullPostContainer = ({
 }) => {
   const [isLikedS, setIsLiked] = useState(isLiked);
   const [likeCountS, setLikeCount] = useState(likeCount);
+  const [currentItem, setCurrentItem] = useState(0);
   const [selfComments, setSelfComments] = useState([]);
   const comment = useInput("");
   const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {
@@ -57,6 +58,18 @@ const FullPostContainer = ({
     toggleLikeMutation();
   };
 
+  useEffect(() => {
+    const slide = files => {
+      const totalFiles = files.length;
+      if (currentItem === totalFiles - 1) {
+        setTimeout(() => setCurrentItem(0), 3000);
+      } else {
+        setTimeout(() => setCurrentItem(currentItem + 1), 3000);
+      }
+    };
+    slide(files);
+  }, [currentItem, files]);
+
   return (
     <FullPostPresenter
       files={files}
@@ -68,6 +81,7 @@ const FullPostContainer = ({
       isLiked={isLikedS}
       toggleLike={toggleLike}
       likeCount={likeCountS}
+      currentItem={currentItem}
       onKeyPress={onKeyPress}
       selfComments={selfComments}
       newComment={comment}

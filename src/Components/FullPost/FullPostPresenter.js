@@ -26,13 +26,25 @@ const Container = styled.div`
   max-height: 600px;
 `;
 
-const Image = styled.div`
+const Files = styled.div`
+  position: relative;
   max-width: 600px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex-shrink: 0;
+`;
+
+const Image = styled.div`
+  width: 100%;
+  height: 100%;
   background-image: url(${props => props.src});
   background-size: cover;
   background-position: center;
-  height: 600px;
+  transition: opacity 0.5s linear;
+  opacity: ${props => (props.showing ? 1 : 0)};
+  position: absolute;
 `;
 
 const RightContents = styled.div`
@@ -76,6 +88,7 @@ const Comments = styled.div`
   margin-top: 70px;
   border-bottom: ${props => props.theme.boxBorder};
   max-height: 395px;
+  min-height: 395px;
   overflow: auto;
 `;
 
@@ -137,7 +150,8 @@ const FullPostPresenter = ({
   createdAt,
   onKeyPress,
   selfComments,
-  newComment
+  newComment,
+  currentItem
 }) => {
   return (
     <Wrapper>
@@ -147,7 +161,16 @@ const FullPostPresenter = ({
         </title>
       </Helmet>
       <Container>
-        {files && <Image key={files[0].id} src={files[0].url} />}
+        <Files>
+          {files &&
+            files.map((file, index) => (
+              <Image
+                key={file.id}
+                src={file.url}
+                showing={index === currentItem}
+              />
+            ))}
+        </Files>
         <RightContents>
           <Header>
             <EAvatar size={"sm"} url={user.avatar} />

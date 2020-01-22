@@ -12,6 +12,7 @@ const Wrapper = styled.div`
 const FULL_POST = gql`
   query seeFullPost($id: String!) {
     seeFullPost(id: $id) {
+      id
       files {
         id
         url

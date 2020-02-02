@@ -70,6 +70,7 @@ export default () => {
         ))}
       {!loading &&
         data &&
+        data.seeFeed &&
         data.seeFeed.length === 0 &&
         "팔로우한 유저가 없습니다😂"}
     </Wrapper>

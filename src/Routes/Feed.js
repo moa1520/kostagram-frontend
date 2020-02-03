@@ -68,11 +68,7 @@ export default () => {
             caption={post.caption}
           />
         ))}
-      {!loading &&
-        data &&
-        data.seeFeed &&
-        data.seeFeed.length === 0 &&
-        "팔로우한 유저가 없습니다😂"}
+      {!loading && data && !data.seeFeed && "팔로우한 유저가 없습니다😂"}
     </Wrapper>
   );
 };

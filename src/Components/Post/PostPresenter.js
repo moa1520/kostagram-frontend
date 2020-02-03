@@ -105,6 +105,14 @@ const Comment = styled.li`
   }
 `;
 
+const DeleteButton = styled.span`
+  opacity: 0.5;
+  float: right;
+  &:hover {
+    opacity: 1;
+  }
+`;
+
 export default ({
   user: { username, avatar },
   location,
@@ -118,7 +126,8 @@ export default ({
   toggleLike,
   onKeyPress,
   comments,
-  selfComments
+  selfComments,
+  handleDelete
 }) => (
   <Post>
     <Header>
@@ -158,12 +167,20 @@ export default ({
             <Comment key={comment.id}>
               <FatText text={comment.user.username} />
               {comment.text}
+              {comment.user.username === username && (
+                <DeleteButton onClick={() => handleDelete(comment.id)}>
+                  🅧
+                </DeleteButton>
+              )}
             </Comment>
           ))}
           {selfComments.map(comment => (
             <Comment key={comment.id}>
               <FatText text={comment.user.username} />
               {comment.text}
+              <DeleteButton onClick={() => handleDelete(comment.id)}>
+                🅧
+              </DeleteButton>
             </Comment>
           ))}
         </Comments>

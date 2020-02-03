@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import useInput from "../../Hooks/useInput";
 import PostPresenter from "./PostPresenter";
 import { useMutation } from "react-apollo-hooks";
-import { TOGGLE_LIKE, ADD_COMMENT } from "./PostQueries";
+import { TOGGLE_LIKE, ADD_COMMENT, DELETE_COMMENT } from "./PostQueries";
 import { toast } from "react-toastify";
 
 const PostContainer = ({
@@ -31,6 +31,7 @@ const PostContainer = ({
       text: comment.value
     }
   });
+  const [deleteCommentMutation] = useMutation(DELETE_COMMENT);
 
   const toggleLike = () => {
     setIsLiked(!isLikedS);
@@ -55,6 +56,19 @@ const PostContainer = ({
       } catch {
         toast.error("댓글을 달 수 없습니다.");
       }
+    }
+  };
+
+  const handleDelete = async id => {
+    try {
+      await deleteCommentMutation({
+        variables: {
+          id
+        }
+      });
+      window.location.reload();
+    } catch (e) {
+      toast.error("댓글을 삭제할 수 없습니다.");
     }
   };
 
@@ -86,6 +100,7 @@ const PostContainer = ({
       toggleLike={toggleLike}
       onKeyPress={onKeyPress}
       selfComments={selfComments}
+      handleDelete={handleDelete}
     />
   );
 };

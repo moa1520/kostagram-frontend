@@ -7,6 +7,8 @@ import Avatar from "../../Components/Avatar";
 import Input from "../../Components/Input";
 import Button from "../../Components/Button";
 import useInput from "../../Hooks/useInput";
+import { useMutation } from "react-apollo-hooks";
+import { EDIT_USER } from "./EditProfileQueries";
 
 const Wrapper = styled.div`
   display: flex;
@@ -99,7 +101,7 @@ const TextArea = styled.textarea`
 `;
 
 const EButton = styled(Button)`
-  width: 50px;
+  width: 90px;
 `;
 
 const EditProfilePresenter = ({
@@ -115,6 +117,24 @@ const EditProfilePresenter = ({
   const bioInput = useInput(bio);
   const usernameInput = useInput(username);
   const emailInput = useInput(email);
+  const [editUserMutation] = useMutation(EDIT_USER, {
+    variables: {
+      username: usernameInput.value,
+      email: emailInput.value,
+      firstName: firstNameInput.value,
+      lastName: lastNameInput.value,
+      bio: bioInput.value
+    }
+  });
+  const onSubmit = async e => {
+    e.preventDefault();
+    try {
+      const { data } = await editUserMutation();
+      console.log(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <Wrapper>
@@ -129,7 +149,7 @@ const EditProfilePresenter = ({
           <LeftContent selected={false}>로그인 활동</LeftContent>
         </LeftContainer>
         <RightContainer>
-          <form>
+          <form onSubmit={onSubmit}>
             <ETable>
               <tbody>
                 <Row>
@@ -206,7 +226,7 @@ const EditProfilePresenter = ({
                 <Row>
                   <Aside></Aside>
                   <Content>
-                    <EButton text={"제출"} />
+                    <EButton text="수정하기" />
                   </Content>
                 </Row>
               </tbody>

@@ -15,6 +15,8 @@ const Posts = styled.div`
   grid-template-columns: repeat(3, 300px);
   grid-template-rows: 300px;
   grid-auto-rows: 300px;
+  row-gap: 10px;
+  column-gap: 10px;
 `;
 
 const Tab = styled.h2`

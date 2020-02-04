@@ -108,6 +108,7 @@ const Comment = styled.li`
 const DeleteButton = styled.span`
   opacity: 0.5;
   float: right;
+  cursor: pointer;
   &:hover {
     opacity: 1;
   }

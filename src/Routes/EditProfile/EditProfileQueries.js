@@ -29,9 +29,8 @@ export const EDIT_USER = gql`
       lastName: $lastName
       bio: $bio
       avatar: $avatar
-    )
-  }
-  {
-    id
+    ) {
+      id
+    }
   }
 `;

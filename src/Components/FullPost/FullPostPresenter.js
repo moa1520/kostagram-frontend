@@ -90,6 +90,7 @@ const Comments = styled.div`
   max-height: 395px;
   min-height: 395px;
   overflow: auto;
+  overflow-wrap: normal;
 `;
 
 const Comment = styled.div`
@@ -138,6 +139,16 @@ const Textarea = styled(TextareaAutosize)`
   padding: 20px;
 `;
 
+const DeleteButton = styled.span`
+  float: right;
+  opacity: 0.5;
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+  }
+  margin-left: 10px;
+`;
+
 const FullPostPresenter = ({
   isLiked,
   files,
@@ -151,7 +162,8 @@ const FullPostPresenter = ({
   onKeyPress,
   selfComments,
   newComment,
-  currentItem
+  currentItem,
+  handleDelete
 }) => {
   return (
     <Wrapper>
@@ -209,6 +221,13 @@ const FullPostPresenter = ({
                           <FatText text={comment.user.username} />
                         </UserName>
                         {comment.text}
+                        {comment.user.id === user.id && (
+                          <DeleteButton
+                            onClick={() => handleDelete(comment.id)}
+                          >
+                            🅧
+                          </DeleteButton>
+                        )}
                       </Content>
                       <Day>{Date(comment.createdAt)}</Day>
                     </Text>

@@ -9,6 +9,7 @@ import Button from "../../Components/Button";
 import useInput from "../../Hooks/useInput";
 import { useMutation } from "react-apollo-hooks";
 import { EDIT_USER } from "./EditProfileQueries";
+import { toast } from "react-toastify";
 
 const Wrapper = styled.div`
   display: flex;
@@ -117,6 +118,7 @@ const EditProfilePresenter = ({
   const bioInput = useInput(bio);
   const usernameInput = useInput(username);
   const emailInput = useInput(email);
+  const avatarInput = useInput(avatar);
   const [editUserMutation] = useMutation(EDIT_USER, {
     variables: {
       username: usernameInput.value,
@@ -129,10 +131,10 @@ const EditProfilePresenter = ({
   const onSubmit = async e => {
     e.preventDefault();
     try {
-      const { data } = await editUserMutation();
-      console.log(data);
+      await editUserMutation();
+      toast.success("수정이 완료되었습니다.");
     } catch (e) {
-      console.log(e);
+      toast.error("에러가 발생했습니다. 나중에 다시 시도 해주세요");
     }
   };
 
@@ -158,9 +160,9 @@ const EditProfilePresenter = ({
                   </Aside>
                   <Content>
                     <EUsername>{username}</EUsername>
-                    <Link to={"#"}>
+                    {/* <Link to={"#"}>
                       <EFatText text={"프로필 사진 바꾸기"} />
-                    </Link>
+                    </Link> */}
                   </Content>
                 </Row>
                 <Row>
@@ -220,6 +222,18 @@ const EditProfilePresenter = ({
                       value={emailInput.value}
                       onChange={emailInput.onChange}
                       placeholder={"이메일"}
+                    />
+                  </Content>
+                </Row>
+                <Row>
+                  <Aside>
+                    <CFatText text={"프로필 사진"} />
+                  </Aside>
+                  <Content>
+                    <EInput
+                      value={avatarInput.value}
+                      onChange={avatarInput.onChange}
+                      placeholder={"사진 주소"}
                     />
                   </Content>
                 </Row>

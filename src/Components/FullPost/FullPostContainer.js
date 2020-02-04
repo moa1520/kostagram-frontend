@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import FullPostPresenter from "./FullPostPresenter";
 import PropTypes from "prop-types";
 import { useMutation } from "react-apollo-hooks";
-import { TOGGLE_LIKE, ADD_COMMENT } from "../Post/PostQueries";
+import { TOGGLE_LIKE, ADD_COMMENT, DELETE_COMMENT } from "../Post/PostQueries";
 import useInput from "../../Hooks/useInput";
 import { toast } from "react-toastify";
 
@@ -31,6 +31,7 @@ const FullPostContainer = ({
       text: comment.value
     }
   });
+  const [deleteCommentMutation] = useMutation(DELETE_COMMENT);
 
   const onKeyPress = async e => {
     const { which } = e;
@@ -56,6 +57,15 @@ const FullPostContainer = ({
       setLikeCount(likeCountS - 1);
     }
     toggleLikeMutation();
+  };
+
+  const handleDelete = async id => {
+    try {
+      await deleteCommentMutation({ variables: { id } });
+      window.location.reload();
+    } catch {
+      toast.error("에러가 발생했습니다. 나중에 다시 시도해주세요");
+    }
   };
 
   useEffect(() => {
@@ -85,6 +95,7 @@ const FullPostContainer = ({
       onKeyPress={onKeyPress}
       selfComments={selfComments}
       newComment={comment}
+      handleDelete={handleDelete}
     />
   );
 };

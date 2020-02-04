@@ -125,7 +125,8 @@ const EditProfilePresenter = ({
       email: emailInput.value,
       firstName: firstNameInput.value,
       lastName: lastNameInput.value,
-      bio: bioInput.value
+      bio: bioInput.value,
+      avatar: avatarInput.value
     }
   });
   const onSubmit = async e => {

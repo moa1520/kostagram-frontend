@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import FatText from "../../Components/FatText";
 import Avatar from "../../Components/Avatar";
 import Input from "../../Components/Input";
@@ -111,7 +111,8 @@ const EditProfilePresenter = ({
   email,
   firstName,
   lastName,
-  bio
+  bio,
+  history
 }) => {
   const firstNameInput = useInput(firstName);
   const lastNameInput = useInput(lastName);
@@ -134,6 +135,7 @@ const EditProfilePresenter = ({
     try {
       await editUserMutation();
       toast.success("수정이 완료되었습니다.");
+      history.push(`/${username}`);
     } catch (e) {
       toast.error("에러가 발생했습니다. 나중에 다시 시도 해주세요");
     }
@@ -262,4 +264,4 @@ EditProfilePresenter.propTypes = {
   bio: PropTypes.string
 };
 
-export default EditProfilePresenter;
+export default withRouter(EditProfilePresenter);

@@ -13,6 +13,7 @@ export const ADD_COMMENT = gql`
       text
       user {
         username
+        avatar
       }
     }
   }

@@ -58,10 +58,6 @@ const EUsername = styled.div`
   margin-bottom: 5px;
 `;
 
-const EFatText = styled(FatText)`
-  font-size: 14px;
-`;
-
 const CFatText = styled(FatText)`
   font-size: 16px;
 `;
@@ -163,9 +159,6 @@ const EditProfilePresenter = ({
                   </Aside>
                   <Content>
                     <EUsername>{username}</EUsername>
-                    {/* <Link to={"#"}>
-                      <EFatText text={"프로필 사진 바꾸기"} />
-                    </Link> */}
                   </Content>
                 </Row>
                 <Row>

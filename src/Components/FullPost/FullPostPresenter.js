@@ -237,9 +237,9 @@ const FullPostPresenter = ({
                 <Comment key={comment.id}>
                   <Text>
                     <Content>
-                      <EAvatar size={"sm"} url={user.avatar} />
-                      <UserName to={`/${user.username}`}>
-                        <FatText text={user.username} />
+                      <EAvatar size={"sm"} url={comment.user.avatar} />
+                      <UserName to={`/${comment.user.username}`}>
+                        <FatText text={comment.user.username} />
                       </UserName>
                       {comment.text}
                     </Content>

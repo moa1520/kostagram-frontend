@@ -8,6 +8,8 @@ import Avatar from "../Avatar";
 import FatText from "../FatText";
 import Date from "../Date";
 import { HeartFull, Comment as CommentIcon, HeartEmpty } from "../Icons";
+import { useQuery } from "react-apollo-hooks";
+import { EDIT_PROFILE_QUERY } from "../../Routes/EditProfile/EditProfileQueries";
 
 const Wrapper = styled.div`
   display: flex;
@@ -165,111 +167,114 @@ const FullPostPresenter = ({
   currentItem,
   handleDelete
 }) => {
-  return (
-    <Wrapper>
-      <Helmet>
-        <title>
-          Kostagram의 {user.fullName}님: "{caption}"
-        </title>
-      </Helmet>
-      <Container>
-        <Files>
-          {files &&
-            files.map((file, index) => (
-              <Image
-                key={file.id}
-                src={file.url}
-                showing={index === currentItem}
-              />
-            ))}
-        </Files>
-        <RightContents>
-          <Header>
-            <EAvatar size={"sm"} url={user.avatar} />
-            <UserColumn>
-              <Link to={`/${user.username}`}>
-                <FatText text={user.username} />
-              </Link>
-              <Location>{location}</Location>
-            </UserColumn>
-          </Header>
-          <Comments>
-            <StickyBox offsetTop={10} offsetBottom={10}>
-              <Comment>
-                <Text>
-                  <Content>
-                    <EAvatar size={"sm"} url={user.avatar} />
-                    <UserName to={`/${user.username}`}>
-                      <FatText text={user.username} />
-                    </UserName>
-                    {caption}
-                  </Content>
-                  <Day>{Date(createdAt)}</Day>
-                </Text>
-              </Comment>
-              {comments &&
-                comments.map(comment => (
-                  <Comment key={comment.id}>
+  const { loading, data } = useQuery(EDIT_PROFILE_QUERY);
+  return loading
+    ? null
+    : data && data.me && (
+        <Wrapper>
+          <Helmet>
+            <title>
+              Kostagram의 {user.fullName}님: "{caption}"
+            </title>
+          </Helmet>
+          <Container>
+            <Files>
+              {files &&
+                files.map((file, index) => (
+                  <Image
+                    key={file.id}
+                    src={file.url}
+                    showing={index === currentItem}
+                  />
+                ))}
+            </Files>
+            <RightContents>
+              <Header>
+                <EAvatar size={"sm"} url={user.avatar} />
+                <UserColumn>
+                  <Link to={`/${user.username}`}>
+                    <FatText text={user.username} />
+                  </Link>
+                  <Location>{location}</Location>
+                </UserColumn>
+              </Header>
+              <Comments>
+                <StickyBox offsetTop={10} offsetBottom={10}>
+                  <Comment>
                     <Text>
                       <Content>
-                        <EAvatar
-                          key={comment.user.id}
-                          size={"sm"}
-                          url={comment.user.avatar}
-                        />
-                        <UserName to={`/${comment.user.username}`}>
-                          <FatText text={comment.user.username} />
+                        <EAvatar size={"sm"} url={user.avatar} />
+                        <UserName to={`/${user.username}`}>
+                          <FatText text={user.username} />
                         </UserName>
-                        {comment.text}
-                        {comment.user.id === user.id && (
-                          <DeleteButton
-                            onClick={() => handleDelete(comment.id)}
-                          >
-                            🅧
-                          </DeleteButton>
-                        )}
+                        {caption}
                       </Content>
-                      <Day>{Date(comment.createdAt)}</Day>
+                      <Day>{Date(createdAt)}</Day>
                     </Text>
                   </Comment>
-                ))}
-              {selfComments.map(comment => (
-                <Comment key={comment.id}>
-                  <Text>
-                    <Content>
-                      <EAvatar size={"sm"} url={comment.user.avatar} />
-                      <UserName to={`/${comment.user.username}`}>
-                        <FatText text={comment.user.username} />
-                      </UserName>
-                      {comment.text}
-                    </Content>
-                    <Day>방금 전</Day>
-                  </Text>
-                </Comment>
-              ))}
-            </StickyBox>
-          </Comments>
-          <Utils>
-            <Buttons>
-              <Button onClick={toggleLike}>
-                {isLiked ? <HeartFull /> : <HeartEmpty />}
-              </Button>
-              <Button>
-                <CommentIcon />
-              </Button>
-            </Buttons>
-            <FatText text={`좋아요 ${likeCount}개`} />
-          </Utils>
-          <Textarea
-            placeholder={"댓글달기..."}
-            value={newComment.value}
-            onChange={newComment.onChange}
-            onKeyPress={onKeyPress}
-          />
-        </RightContents>
-      </Container>
-    </Wrapper>
-  );
+                  {comments &&
+                    comments.map(comment => (
+                      <Comment key={comment.id}>
+                        <Text>
+                          <Content>
+                            <EAvatar
+                              key={comment.user.id}
+                              size={"sm"}
+                              url={comment.user.avatar}
+                            />
+                            <UserName to={`/${comment.user.username}`}>
+                              <FatText text={comment.user.username} />
+                            </UserName>
+                            {comment.text}
+                            {comment.user.id === data.me.id && (
+                              <DeleteButton
+                                onClick={() => handleDelete(comment.id)}
+                              >
+                                🅧
+                              </DeleteButton>
+                            )}
+                          </Content>
+                          <Day>{Date(comment.createdAt)}</Day>
+                        </Text>
+                      </Comment>
+                    ))}
+                  {selfComments.map(comment => (
+                    <Comment key={comment.id}>
+                      <Text>
+                        <Content>
+                          <EAvatar size={"sm"} url={comment.user.avatar} />
+                          <UserName to={`/${comment.user.username}`}>
+                            <FatText text={comment.user.username} />
+                          </UserName>
+                          {comment.text}
+                        </Content>
+                        <Day>방금 전</Day>
+                      </Text>
+                    </Comment>
+                  ))}
+                </StickyBox>
+              </Comments>
+              <Utils>
+                <Buttons>
+                  <Button onClick={toggleLike}>
+                    {isLiked ? <HeartFull /> : <HeartEmpty />}
+                  </Button>
+                  <Button>
+                    <CommentIcon />
+                  </Button>
+                </Buttons>
+                <FatText text={`좋아요 ${likeCount}개`} />
+              </Utils>
+              <Textarea
+                placeholder={"댓글달기..."}
+                value={newComment.value}
+                onChange={newComment.onChange}
+                onKeyPress={onKeyPress}
+              />
+            </RightContents>
+          </Container>
+        </Wrapper>
+      );
 };
 
 export default FullPostPresenter;

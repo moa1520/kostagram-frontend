@@ -6,6 +6,9 @@ import FatText from "../FatText";
 import Avatar from "../Avatar";
 import { HeartFull, HeartEmpty, Comment as CommentIcon } from "../Icons";
 import Date from "../Date";
+import { useQuery } from "react-apollo-hooks";
+import { EDIT_PROFILE_QUERY } from "../../Routes/EditProfile/EditProfileQueries";
+import Loader from "../Loader";
 
 const Post = styled.div`
   ${props => props.theme.whiteBox};
@@ -129,70 +132,79 @@ export default ({
   comments,
   selfComments,
   handleDelete
-}) => (
-  <Post>
-    <Header>
-      <Avatar size="sm" url={avatar} />
-      <UserColumn>
-        <Link to={`/${username}`}>
-          <FatText text={username} />
-        </Link>
-        <Location>{location}</Location>
-      </UserColumn>
-    </Header>
-    <Files>
-      {files &&
-        files.map((file, index) => (
-          <File key={file.id} src={file.url} showing={index === currentItem} />
-        ))}
-    </Files>
-    <Meta>
-      <Buttons>
-        <Button onClick={toggleLike}>
-          {isLiked ? <HeartFull /> : <HeartEmpty />}
-        </Button>
-        <Button>
-          <CommentIcon />
-        </Button>
-      </Buttons>
-      <FatText text={`좋아요 ${likeCount}개`} />
-      <Comments>
-        <Comment>
-          <FatText text={username} />
-          {caption}
-        </Comment>
-      </Comments>
-      {comments && (
-        <Comments>
-          {comments.map(comment => (
-            <Comment key={comment.id}>
-              <FatText text={comment.user.username} />
-              {comment.text}
-              {comment.user.username === username && (
-                <DeleteButton onClick={() => handleDelete(comment.id)}>
-                  🅧
-                </DeleteButton>
-              )}
-            </Comment>
-          ))}
-          {selfComments.map(comment => (
-            <Comment key={comment.id}>
-              <FatText text={comment.user.username} />
-              {comment.text}
-              <DeleteButton onClick={() => handleDelete(comment.id)}>
-                🅧
-              </DeleteButton>
-            </Comment>
-          ))}
-        </Comments>
-      )}
-      <Timestamp>{Date(createdAt)}</Timestamp>
-      <Textarea
-        placeholder={"댓글달기..."}
-        value={newComment.value}
-        onChange={newComment.onChange}
-        onKeyPress={onKeyPress}
-      />
-    </Meta>
-  </Post>
-);
+}) => {
+  const { loading, data } = useQuery(EDIT_PROFILE_QUERY);
+  return loading
+    ? null
+    : data && data.me && (
+        <Post>
+          <Header>
+            <Avatar size="sm" url={avatar} />
+            <UserColumn>
+              <Link to={`/${username}`}>
+                <FatText text={username} />
+              </Link>
+              <Location>{location}</Location>
+            </UserColumn>
+          </Header>
+          <Files>
+            {files &&
+              files.map((file, index) => (
+                <File
+                  key={file.id}
+                  src={file.url}
+                  showing={index === currentItem}
+                />
+              ))}
+          </Files>
+          <Meta>
+            <Buttons>
+              <Button onClick={toggleLike}>
+                {isLiked ? <HeartFull /> : <HeartEmpty />}
+              </Button>
+              <Button>
+                <CommentIcon />
+              </Button>
+            </Buttons>
+            <FatText text={`좋아요 ${likeCount}개`} />
+            <Comments>
+              <Comment>
+                <FatText text={username} />
+                {caption}
+              </Comment>
+            </Comments>
+            {comments && (
+              <Comments>
+                {comments.map(comment => (
+                  <Comment key={comment.id}>
+                    <FatText text={comment.user.username} />
+                    {comment.text}
+                    {comment.user.username === data.me.username && (
+                      <DeleteButton onClick={() => handleDelete(comment.id)}>
+                        🅧
+                      </DeleteButton>
+                    )}
+                  </Comment>
+                ))}
+                {selfComments.map(comment => (
+                  <Comment key={comment.id}>
+                    <FatText text={comment.user.username} />
+                    {comment.text}
+                    <DeleteButton onClick={() => handleDelete(comment.id)}>
+                      🅧
+                    </DeleteButton>
+                  </Comment>
+                ))}
+              </Comments>
+            )}
+            <Timestamp>{Date(createdAt)}</Timestamp>
+            <Textarea
+              placeholder={"댓글달기..."}
+              value={newComment.value}
+              onChange={newComment.onChange}
+              onKeyPress={onKeyPress}
+            />
+          </Meta>
+        </Post>
+      );
+};

@@ -3,6 +3,7 @@ import { gql } from "apollo-boost";
 export const EDIT_PROFILE_QUERY = gql`
   query me {
     me {
+      id
       avatar
       username
       email

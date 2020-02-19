@@ -7,7 +7,7 @@ import StickyBox from "react-sticky-box";
 import Avatar from "../Avatar";
 import FatText from "../FatText";
 import Date from "../Date";
-import { HeartFull, Comment as CommentIcon, HeartEmpty } from "../Icons";
+import { HeartFull, Comment as CommentIcon, HeartEmpty, Xmark } from "../Icons";
 import { useQuery } from "react-apollo-hooks";
 import { EDIT_PROFILE_QUERY } from "../../Routes/EditProfile/EditProfileQueries";
 
@@ -230,7 +230,7 @@ const FullPostPresenter = ({
                               <DeleteButton
                                 onClick={() => handleDelete(comment.id)}
                               >
-                                🅧
+                                <Xmark size={10} />
                               </DeleteButton>
                             )}
                           </Content>
@@ -247,6 +247,11 @@ const FullPostPresenter = ({
                             <FatText text={comment.user.username} />
                           </UserName>
                           {comment.text}
+                          <DeleteButton
+                            onClick={() => handleDelete(comment.id)}
+                          >
+                            <Xmark size={10} />
+                          </DeleteButton>
                         </Content>
                         <Day>방금 전</Day>
                       </Text>

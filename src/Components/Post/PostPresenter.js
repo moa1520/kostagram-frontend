@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import TextareaAutosize from "react-textarea-autosize";
 import FatText from "../FatText";
 import Avatar from "../Avatar";
-import { HeartFull, HeartEmpty, Comment as CommentIcon } from "../Icons";
+import { HeartFull, HeartEmpty, Comment as CommentIcon, Xmark } from "../Icons";
 import Date from "../Date";
 import { useQuery } from "react-apollo-hooks";
 import { EDIT_PROFILE_QUERY } from "../../Routes/EditProfile/EditProfileQueries";
@@ -181,7 +181,7 @@ export default ({
                     {comment.text}
                     {comment.user.username === data.me.username && (
                       <DeleteButton onClick={() => handleDelete(comment.id)}>
-                        🅧
+                        <Xmark size={10} />
                       </DeleteButton>
                     )}
                   </Comment>
@@ -191,7 +191,7 @@ export default ({
                     <FatText text={comment.user.username} />
                     {comment.text}
                     <DeleteButton onClick={() => handleDelete(comment.id)}>
-                      🅧
+                      <Xmark size={10} />
                     </DeleteButton>
                   </Comment>
                 ))}

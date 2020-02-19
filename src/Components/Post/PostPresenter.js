@@ -8,7 +8,6 @@ import { HeartFull, HeartEmpty, Comment as CommentIcon, Xmark } from "../Icons";
 import Date from "../Date";
 import { useQuery } from "react-apollo-hooks";
 import { EDIT_PROFILE_QUERY } from "../../Routes/EditProfile/EditProfileQueries";
-import Loader from "../Loader";
 
 const Post = styled.div`
   ${props => props.theme.whiteBox};

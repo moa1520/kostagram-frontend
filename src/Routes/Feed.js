@@ -3,8 +3,8 @@ import Helmet from "react-helmet";
 import styled from "styled-components";
 import { gql } from "apollo-boost";
 import { useQuery } from "react-apollo-hooks";
-import Loader from "../Components/Loader";
 import Post from "../Components/Post";
+import withSuspense from "../Components/withSuspense";
 
 const FEED_QUREY = gql`
   {
@@ -43,32 +43,29 @@ const Wrapper = styled.div`
   min-height: 80vh;
 `;
 
-export default () => {
-  const { data, loading } = useQuery(FEED_QUREY);
+const Feed = () => {
+  const { data } = useQuery(FEED_QUREY, { suspend: true });
   return (
     <Wrapper>
       <Helmet>
         <title>Feed | Kostagram</title>
       </Helmet>
-      {loading && <Loader />}
-      {!loading &&
-        data &&
-        data.seeFeed &&
-        data.seeFeed.map(post => (
-          <Post
-            key={post.id}
-            id={post.id}
-            user={post.user}
-            files={post.files}
-            likeCount={post.likeCount}
-            isLiked={post.isLiked}
-            comments={post.comments}
-            createdAt={post.createdAt}
-            location={post.location}
-            caption={post.caption}
-          />
-        ))}
-      {!loading && data && !data.seeFeed && "팔로우한 유저가 없습니다😂"}
+      {data.seeFeed.map(post => (
+        <Post
+          key={post.id}
+          id={post.id}
+          user={post.user}
+          files={post.files}
+          likeCount={post.likeCount}
+          isLiked={post.isLiked}
+          comments={post.comments}
+          createdAt={post.createdAt}
+          location={post.location}
+          caption={post.caption}
+        />
+      ))}
     </Wrapper>
   );
 };
+
+export default withSuspense(Feed);
